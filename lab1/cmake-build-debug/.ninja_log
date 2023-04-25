@@ -1,0 +1,4 @@
+# ninja log v5
+37	54	1680698541825772094	lab1	3eba39ea7e8d722f
+0	37	1680698541809773085	CMakeFiles/lab1.dir/src/shell.c.o	d1a1b3a65dc12efd
+0	33	1680698541805773332	CMakeFiles/lab1.dir/src/sim.c.o	25df0509c4f7fe66
