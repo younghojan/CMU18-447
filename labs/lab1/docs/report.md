@@ -90,4 +90,34 @@ So, does "U" really stand for unsigned, even if the immediate is sign-extended i
 
 According to the book *See MIPS Run Linux*, the writer says, a "U" suffix is usually read as "unsigned" on assembly mnemonics, but this is not always the meaning. In most arithmetic operations, "U" stands for "no overflow check". When using the arithmetic operation ADD without a "U" suffix, the result overflow will cause an exception. However, when the arithmetic operation ADD with a "U" suffix is used, the same result will be obtained for the same operands but no exception will be raised. By the way, *C* and *C++* do not support integer overflow exceptions, so always use the "U" form. 
 
-### 
+### A trick to avoid some shifts and masks
+
+When managing instructions that contain signed immediate numbers, the manual may state that "the 16-bit offset is sign-extended (for LW, etc.)" or "the 16-bit offset is shifted left two bits and sign-extended (for BNE, etc.)". Sign extension is commonly achieved through a bitwise OR operation with the sign bit.
+
+Taking BNE as an example: 
+
+```
+ 31      26 25  21 20  16 15                 0
+|BNE OPcode|  rs  |  rt  |       offset       |
+     6        5      5             16
+```
+
+The instruction is of type uint32_t and the branch target should be "the 16-bit offset, shifted left two bits and sign-extended". Our primary objective is to extract the offset and perform some operations to transform it into the proper branch target.
+
+A common way is like:
+
+```c
+uint32_t instruction = mem_read_32(CURRENT_STATE.PC);
+uint32_t offset = (instruction & 0x0000ffff) << 2;
+uint32_t mask = instruction & 0x00008000 ? 0xfffc0000 : 0x00000000;
+offset |= mask;
+```
+
+This seems a little cumbersome because we could avoid using a mask by simply casting the instruction from unsigned to signed since the right shift of signed numbers in C language defaults to arithmetic right shift:
+
+```c
+uint32_t instruction = mem_read_32(CURRENT_STATE.PC);
+int32_t offset = (((int32_t) instruction & 0x0000FFFF) << 16) >> 14;
+```
+
+ 
