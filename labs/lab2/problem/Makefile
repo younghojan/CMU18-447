@@ -5,6 +5,7 @@
 #   - 2011: Joshua Wise
 #   - 2013: Yoongu Kim
 #   - 2014: Xiao Bo Zhao
+#	- 2023: Hojan Young
 #
 
 
@@ -48,62 +49,62 @@ m=$g18-477 Makefile: $n
 ###################################################################
 
 default:
-	@echo -e "$mHELP SCREEN"
-	@echo -e ""
-	@echo -e "$bUSAGE:$n"
-	@echo -e "\tmake $uTARGET$n [$uVARIABLE$n]..."
-	@echo -e ""
-	@echo -e ""
-	@echo -e "$bTARGET:$n"
-	@echo -e "\t$bsim$n"
-	@echo -e "\t    compiles Verilog found in $usrc$n directory;"
-	@echo -e "\t    simulates Verilog using $bINPUT$n as input;"
-	@echo -e "\t    places all outputs (logs, waveforms, regdump, etc.) in $bOUTPUT$n"
-	@echo -e ""
-	@echo -e "\t$bverify$n"
-	@echo -e "\t    compiles Verilog found in $usrc$n directory;"
-	@echo -e "\t    simulates Verilog using $bINPUT$n as input;"
-	@echo -e "\t    places all outputs (logs, waveforms, regdump, etc.) in $bOUTPUT$n"
-	@echo -e "\t    verifies the simulation register-dump against the reference"
-	@echo -e ""
-	@echo -e "\t$bbatch-verify$n"
-	@echo -e "\t    similar to $bverify$n, but uses $bBATCH$n as input"
-	@echo -e ""
-	@echo -e "\t$bsynth$n"
-	@echo -e "\t    compiles Verilog found in $usrc$n directory;"
-	@echo -e "\t    synthesizes Verilog"
-	@echo -e "\t    places all outputs (reports, schematics, etc.) in $bOUTPUT$n"
-	@echo -e ""
-	@echo -e "\t$bauto$n"
-	@echo -e "\t    automatically \"wires\" up Verilog modules found in $usrc/*.v$n;"
-	@echo -e "\t    (not mandatory -- merely for your convenience)"
-	@echo -e ""
-	@echo -e ""
-	@echo -e "$bVARIABLE:$n"
-	@echo -e "\t$bINPUT$n=$uASSEMBLY$n"
-	@echo -e "\t    for $bsim$n and $bverify$n, specifies an input ARM assemply file;"
-	@echo -e "\t    if unspecified, defaults to $u447inputs/addiu.s$n"
-	@echo -e ""
-	@echo -e "\t$bBATCH$n=$uASSEMBLY FILES$n"
-	@echo -e "\t    for $bbatch-verify$n, specifies one or more input ARM assemply files;"
-	@echo -e "\t    if unspecified, defaults to $u447inputs/addiu.s$n"
-	@echo -e ""
-	@echo -e "\t$bOUTPUT$n=$uDIR$n"
-	@echo -e "\t    for all targets, specifies the output directory;"
-	@echo -e "\t    if unspecified, defaults to $uoutputs/current-timestamp$n;"
-	@echo -e ""
-	@echo -e ""
-	@echo -e "$bEXAMPLES:$n"
-	@echo -e "\tmake sim"
-	@echo -e "\tmake sim INPUT=inputs/mytest.s OUTPUT=outputs/myoutput"
-	@echo -e "\tmake verify"
-	@echo -e "\tmake verify INPUT=inputs/mytest.s OUTPUT=outputs/myoutput"
-	@echo -e "\tmake batch-verify BATCH=447inputs/*.s"
-	@echo -e "\tmake batch-verify BATCH=447inputs/*.s OUTPUT=outputs/myoutput"
-	@echo -e "\tmake synth"
-	@echo -e "\tmake synth OUTPUT=outputs/myoutput"
-	@echo -e ""
-	@echo -e "(END)"
+	@echo "$mHELP SCREEN"
+	@echo ""
+	@echo "$bUSAGE:$n"
+	@echo "\tmake $uTARGET$n [$uVARIABLE$n]..."
+	@echo ""
+	@echo ""
+	@echo "$bTARGET:$n"
+	@echo "\t$bsim$n"
+	@echo "\t    compiles Verilog found in $usrc$n directory;"
+	@echo "\t    simulates Verilog using $bINPUT$n as input;"
+	@echo "\t    places all outputs (logs, waveforms, regdump, etc.) in $bOUTPUT$n"
+	@echo ""
+	@echo "\t$bverify$n"
+	@echo "\t    compiles Verilog found in $usrc$n directory;"
+	@echo "\t    simulates Verilog using $bINPUT$n as input;"
+	@echo "\t    places all outputs (logs, waveforms, regdump, etc.) in $bOUTPUT$n"
+	@echo "\t    verifies the simulation register-dump against the reference"
+	@echo ""
+	@echo "\t$bbatch-verify$n"
+	@echo "\t    similar to $bverify$n, but uses $bBATCH$n as input"
+	@echo ""
+	@echo "\t$bsynth$n"
+	@echo "\t    compiles Verilog found in $usrc$n directory;"
+	@echo "\t    synthesizes Verilog"
+	@echo "\t    places all outputs (reports, schematics, etc.) in $bOUTPUT$n"
+	@echo ""
+	@echo "\t$bauto$n"
+	@echo "\t    automatically \"wires\" up Verilog modules found in $usrc/*.v$n;"
+	@echo "\t    (not mandatory -- merely for your convenience)"
+	@echo ""
+	@echo ""
+	@echo "$bVARIABLE:$n"
+	@echo "\t$bINPUT$n=$uASSEMBLY$n"
+	@echo "\t    for $bsim$n and $bverify$n, specifies an input ARM assemply file;"
+	@echo "\t    if unspecified, defaults to $u447inputs/addiu.s$n"
+	@echo ""
+	@echo "\t$bBATCH$n=$uASSEMBLY FILES$n"
+	@echo "\t    for $bbatch-verify$n, specifies one or more input ARM assemply files;"
+	@echo "\t    if unspecified, defaults to $u447inputs/addiu.s$n"
+	@echo ""
+	@echo "\t$bOUTPUT$n=$uDIR$n"
+	@echo "\t    for all targets, specifies the output directory;"
+	@echo "\t    if unspecified, defaults to $uoutputs/current-timestamp$n;"
+	@echo ""
+	@echo ""
+	@echo "$bEXAMPLES:$n"
+	@echo "\tmake sim"
+	@echo "\tmake sim INPUT=inputs/mytest.s OUTPUT=outputs/myoutput"
+	@echo "\tmake verify"
+	@echo "\tmake verify INPUT=inputs/mytest.s OUTPUT=outputs/myoutput"
+	@echo "\tmake batch-verify BATCH=447inputs/*.s"
+	@echo "\tmake batch-verify BATCH=447inputs/*.s OUTPUT=outputs/myoutput"
+	@echo "\tmake synth"
+	@echo "\tmake synth OUTPUT=outputs/myoutput"
+	@echo ""
+	@echo "(END)"
 	@exit 0
 
 
@@ -112,17 +113,11 @@ default:
 ###################################################################
 
 compile:
-	@echo -e "$mCopying Verilog into $(OUTPUT)..."
+	@echo "$mCopying Verilog into $(OUTPUT)..."
 	@mkdir -p $(OUTPUT)/sim/src
 	@cp `find src 447src -iname '*.sv' -o -iname '*.v' -o -iname '*.vh'`	$(OUTPUT)/sim/src
-	@echo -e "$mCompiling Verilog..."
-	cd $(OUTPUT)/sim; ncvlog -sv -linedebug -messages -incdir src src/*.v src/*.sv
-	@if grep '*W' $(OUTPUT)/sim/ncvlog.log >/dev/null; \
-		then echo -e '$m$rCompiler log has warnings!$n'; fi
-	@echo -e "$mElaborating Verilog..."
-	cd $(OUTPUT)/sim; ncelab +access+rwc -messages worklib.$(TB)
-	@if grep '*W' $(OUTPUT)/sim/ncelab.log >/dev/null; \
-		then echo -e '$m$rElaborator log has warnings!$n'; fi
+	@echo "$mCompiling Verilog..."
+	cd $(OUTPUT)/sim; iverilog -g2012 -o verilog_sim src/*.v src/*.sv -I src/
 
 
 ###################################################################
@@ -130,11 +125,11 @@ compile:
 ###################################################################
 
 assemble:
-	@echo -e "$mCopying $(INPUT) into $(OUTPUT)..."
+	@echo "$mCopying $(INPUT) into $(OUTPUT)..."
 	@mkdir -p $(OUTPUT)/sim
 	@([ -f $(INPUT) ] && cp $(INPUT) $(OUTPUT)/sim) || \
-		(echo -e "$mERROR -- test input not found: $(INPUT)"; exit 1)
-	@echo -e "$mAssemblying input in $(OUTPUT)..."
+		(echo "$mERROR -- test input not found: $(INPUT)"; exit 1)
+	@echo "$mAssemblying input in $(OUTPUT)..."
 	spim447 -notrap -vasm $(INPUT) $(OUTPUT)/sim/mem;
 
 
@@ -143,15 +138,15 @@ assemble:
 ###################################################################
 
 sim: compile assemble
-	@echo -e "$mCopying NCSim configuration into $(OUTPUT)..."
+	@echo "$mCopying NCSim configuration into $(OUTPUT)..."
 	@cp ncsim/* $(OUTPUT)/sim
 	@cp 447ncsim/* $(OUTPUT)/sim
-	@echo -e "$mSimulating Verilog in $(OUTPUT)..."
+	@echo "$mSimulating Verilog in $(OUTPUT)..."
 	cd $(OUTPUT)/sim; ncsim worklib.$(TB):module -input 447ncsim.tcl -input ncsim.tcl
 	@if grep '*W' $(OUTPUT)/sim/ncsim.log >/dev/null; \
-		then echo -e '$m$rSimulator log has warnings!$n'; fi
-	@echo -e "$mSimulation of $(INPUT) has completed in $(OUTPUT)."
-	@echo -e "$mTo view waveforms, execute the following command: $bsimvision $(OUTPUT)/sim/waveforms.shm$n"
+		then echo '$m$rSimulator log has warnings!$n'; fi
+	@echo "$mSimulation of $(INPUT) has completed in $(OUTPUT)."
+	@echo "$mTo view waveforms, execute the following command: $bsimvision $(OUTPUT)/sim/waveforms.shm$n"
 
 
 ###################################################################
@@ -160,10 +155,10 @@ sim: compile assemble
 
 verify: sim
 	@([ -f $(REGDUMP) ] && cp $(REGDUMP) $(OUTPUT)/sim) || \
-		(echo -e "$mERROR -- reference register-dump not found: $(REGDUMP)"; exit 1)
+		(echo "$mERROR -- reference register-dump not found: $(REGDUMP)"; exit 1)
 	447util/tester.pl $(OUTPUT)/sim/$(notdir $(REGDUMP)) $(OUTPUT)/sim/regdump.txt
-	@echo -e "$mVerification of $(INPUT) has completed in $(OUTPUT)."
-	@echo -e "$mTo view the simulation register-dump, execute the following command: $bcat $(OUTPUT)/sim/regdump.txt$n"
+	@echo "$mVerification of $(INPUT) has completed in $(OUTPUT)."
+	@echo "$mTo view the simulation register-dump, execute the following command: $bcat $(OUTPUT)/sim/regdump.txt$n"
 
 batch-verify:
 	for i in $(BATCH); do \
@@ -182,8 +177,8 @@ synth:
 	@cp `find 447src -iname '*.v' -o -iname '*.sv' -o -iname '*.vh'` $(OUTPUT)/synth/447src
 	@cp $(SYNTHDIR)/$(SYNTH).dc $(OUTPUT)/synth
 	@cd $(OUTPUT)/synth; dc_shell-xg-t -f $(SYNTH).dc
-	@echo -e "$mSynthesis has completed in $(OUTPUT)."
-	@echo -e "Timing results can be found at $(OUTPUT)/synth/timing_mips_core.rpt"
+	@echo "$mSynthesis has completed in $(OUTPUT)."
+	@echo "Timing results can be found at $(OUTPUT)/synth/timing_mips_core.rpt"
 
 
 ###################################################################
