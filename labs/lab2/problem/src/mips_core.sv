@@ -156,30 +156,30 @@ module mips_core(/*AUTOARG*/
    // Generate control signals
    mips_decode Decoder(/*AUTOINST*/
 		       // Outputs
-		       .ctrl_we		(ctrl_we),
-		       .ctrl_Sys	(ctrl_Sys),
-		       .ctrl_RI		(ctrl_RI),
-		       .alu__sel	(alu__sel[3:0]),
+		       .ctrl_we		(ctrl_we),            // Write to the register file
+		       .ctrl_Sys	(ctrl_Sys),           // System call exception
+		       .ctrl_RI		(ctrl_RI),            // Reserved instruction exception
+		       .alu__sel	(alu__sel[3:0]),      // Selects the ALU function
 		       // Inputs
-		       .dcd_op		(dcd_op[5:0]),
-		       .dcd_funct2	(dcd_funct2[5:0]));
+		       .dcd_op		(dcd_op[5:0]),        // Instruction opcode
+		       .dcd_funct2	(dcd_funct2[5:0])); // Instruction minor opcode
  
    // Register File
    // Instantiate the register file from reg_file.v here.
    // Don't forget to hookup the "halted" signal to trigger the register dump 
    regfile reg_file (
 		       // Outputs
-		       .rs_data(rs_data),
-		       .rt_data(rt_data),
+		       .rs_data   (rs_data),
+		       .rt_data   (rt_data),
 		       // Inputs
-		       .rs_num(rs_num),
-		       .rt_num(rt_num),
-		       .rd_num(rd_num),
-		       .rd_data(rd_data),
-		       .rd_we(rd_we),
-		       .clk(clk),
-		       .rst_b(rst_b),
-		       .halted(halted));
+		       .rs_num    (dcd_rs),
+		       .rt_num    (dcd_rt),
+		       .rd_num    (dcd_rd),
+		       .rd_data   (rd_data),
+		       .rd_we     (ctrl_we),
+		       .clk       (clk),
+		       .rst_b     (rst_b),
+		       .halted    (halted));
 
    // synthesis translate_off
    initial begin
