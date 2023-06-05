@@ -41,50 +41,35 @@
 `include "internal_defines.vh"
 
 ////
-//// mips_decode: Decode MIPS instructions
+//// CU: Control Unit
 ////
-//// op      (input)  - Instruction opcode
-//// funct2  (input)  - Instruction minor opcode
-//// rt      (input)  - Instruction minor opcode
-//// alu_sel (output) - Selects the ALU function
-//// we      (output) - Write to the register file
-//// Sys     (output) - System call exception
-//// RI      (output) - Reserved instruction exception
+//// op_code  (input)  - Instruction opcode
+//// RegDst   (output) - 
+//// Jump     (output) - 
+//// Branch   (output) - 
+//// MemRead  (output) - 
+//// MemtoReg (output) - 
+//// ALUop    (output) - 
+//// MemWrite (output) - 
+//// ALUSrc   (output) - 
+//// RegWrite (output) - 
 ////
-module mips_decode(/*AUTOARG*/
+module CU(/*AUTOARG*/
    // Outputs
-   ctrl_we, ctrl_Sys, ctrl_RI, alu__sel,
+   RegDst, Jump, Branch, MemRead, MemtoReg, ALUop, MemWrite, ALUSrc, RegWrite,
    // Inputs
-   dcd_op, dcd_funct2
+   op_code
    );
 
-   input       [5:0] dcd_op, dcd_funct2;
-   output reg        ctrl_we, ctrl_Sys, ctrl_RI;
-   output reg  [3:0] alu__sel;
+   input [5:0] op_code;
+   output reg  RegDst,jump,Branch,MemtoReg,ALUSrc,RegWrite,MemWrite,MemRead;
+   output reg  [3:0] ALUop;
 
    always @(*) begin
-     alu__sel = 4'hx;
-     ctrl_we = 1'b0;
-     ctrl_Sys = 1'b0;
-     ctrl_RI = 1'b0;
-     case(dcd_op)
-       `OP_OTHER0:
-         case(dcd_funct2)
-           `OP0_SYSCALL:
-                ctrl_Sys = 1'b1;
-           default:
-                ctrl_RI = 1'b1;
-         endcase
-       `OP_ADDIU:
-         begin
-            alu__sel = `ALU_ADD;
-            ctrl_we = 1'b1;
-         end
-       default:
-         begin
-            ctrl_RI = 1'b1;
-         end
-     endcase // case(op)
+
+     case(op_code)
+
+     endcase
    end
 
 endmodule

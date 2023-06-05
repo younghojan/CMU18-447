@@ -103,9 +103,9 @@ module mips_core(/*AUTOARG*/
    wire          dcd_bczft;
    
    // PC Management
-   PC #(text_start) PCInst (.clk(clk), .rst(rst_b), .Address_in(pc), .Address_out(nextpc));
+   PC #(text_start) program_counter (.clk(clk), .rst(rst_b), .Address_in(pc), .Address_out(nextpc));
    Add_PC(pc, nextpc);
-   
+
    assign        inst_addr = pc[31:2];
 
    // Instruction decoding
@@ -153,7 +153,7 @@ module mips_core(/*AUTOARG*/
    // End of automatics
 
    // Generate control signals
-   mips_decode Decoder(/*AUTOINST*/
+   CU control_unit(/*AUTOINST*/
 		       // Outputs
 		       .ctrl_we		(ctrl_we),            // Write to the register file
 		       .ctrl_Sys	(ctrl_Sys),           // System call exception
