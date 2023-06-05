@@ -86,7 +86,7 @@ module mips_core(/*AUTOARG*/
    assign        mem_write_en = 4'b0;
 
    // Internal signals
-   wire [31:0]   pc, nextpc, nextnextpc;
+   wire [31:0]   pc, nextpc;
    wire          exception_halt, syscall_halt, internal_halt;
    wire          load_epc, load_bva, load_bva_sel;
    wire [31:0]   rt_data, rs_data, rd_data, alu__out, r_v0;
@@ -103,10 +103,9 @@ module mips_core(/*AUTOARG*/
    wire          dcd_bczft;
    
    // PC Management
-   register #(32, text_start) PCReg(pc, nextpc, clk, ~internal_halt, rst_b);
-   register #(32, text_start+4) PCReg2(nextpc, nextnextpc, clk,
-                                       ~internal_halt, rst_b);
-   add_const #(4) NextPCAdder(nextnextpc, nextpc);
+   PC #(text_start) PCInst (.clk(clk), .rst(rst_b), .Address_in(pc), .Address_out(nextpc));
+   Add_PC(pc, nextpc);
+   
    assign        inst_addr = pc[31:2];
 
    // Instruction decoding
