@@ -7,7 +7,7 @@
 ////
 //// inst  (input)  - Instruction
 ////
-//// op         (output) - Operation code
+//// op_code    (output) - Operation code
 //// rs         (output) - Register rs
 //// rt         (output) - Register rt
 //// rd         (output) - Register rd
@@ -18,7 +18,7 @@
 ////
 module IR(
    // Outputs
-   output [5:0] op,
+   output [5:0] op_code,
    output [4:0] rs,
    output [4:0] rt,
    output [4:0] rd,
@@ -30,7 +30,7 @@ module IR(
    input [31:0] inst
 );
 
-   assign op = inst[31:26];
+   assign op_code = inst[31:26];
    assign rs = inst[25:21];
    assign rt = inst[20:16];
    assign rd = inst[15:11];
