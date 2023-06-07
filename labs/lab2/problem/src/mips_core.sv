@@ -86,27 +86,20 @@ module mips_core(/*AUTOARG*/
    assign        mem_write_en = 4'b0;
 
    // Internal signals
-   wire [31:0]   pc, nextpc;
-   wire          exception_halt, syscall_halt, internal_halt;
-   wire          load_epc, load_bva, load_bva_sel;
-   wire [31:0]   rt_data, rs_data, rd_data, alu__out, r_v0;
-   wire [31:0]   epc, cause, bad_v_addr;
-   wire [4:0]    cause_code;
-
-   // Decode signals
-   wire [31:0]   dcd_se_imm, dcd_se_offset, dcd_e_imm, dcd_se_mem_offset;
-   wire [5:0]    dcd_op, dcd_funct2;
-   wire [4:0]    dcd_rs, dcd_funct1, dcd_rt, dcd_rd, dcd_shamt;
-   wire [15:0]   dcd_offset, dcd_imm;
-   wire [25:0]   dcd_target;
-   wire [19:0]   dcd_code;
-   wire          dcd_bczft;
+   wire [5:0] op,
+   wire [4:0] rs,
+   wire [4:0] rt,
+   wire [4:0] rd,
+   wire [4:0] shamt,
+   wire [5:0] funct,
+   wire [15:0] imm,
+   wire [25:0] target,
    
    // PC Management
    PC #(text_start) program_counter (.clk(clk), .rst(rst_b), .Address_in(pc), .Address_out(nextpc));
    Add_PC(pc, nextpc);
 
-   assign        inst_addr = pc[31:2];
+   assign        inst_addr = nextpc[31:2];
 
    // Instruction decoding
    assign        dcd_op = inst[31:26];    // Opcode
