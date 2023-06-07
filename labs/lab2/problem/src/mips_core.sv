@@ -149,7 +149,7 @@ module mips_core(/*AUTOARG*/
    // End of automatics
 
    // Generate control signals
-   CU control_unitCU(
+   CU control_unit(
       // Inputs
       .op_code    (op_code),
       .rt         (rt),
