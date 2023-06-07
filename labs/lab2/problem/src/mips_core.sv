@@ -86,7 +86,7 @@ module mips_core(/*AUTOARG*/
    assign        mem_write_en = 4'b0;
 
    // Internal signals
-   wire [5:0] op,
+   wire [5:0] op_code,
    wire [4:0] rs,
    wire [4:0] rt,
    wire [4:0] rd,
@@ -94,6 +94,18 @@ module mips_core(/*AUTOARG*/
    wire [5:0] funct,
    wire [15:0] imm,
    wire [25:0] target,
+
+   wire RegDst,
+   wire RegWrite,
+   wire Jump,
+   wire Branch,
+   wire MemRead,
+   wire MemWrite,
+   wire MemtoReg,
+   wire [3:0] ALUOp,
+   wire ALUSrc1,
+   wire [1:0] ALUSrc2;
+
    
    // PC Management
    PC #(text_start) program_counter (.clk(clk), .rst(rst_b), .Address_in(pc), .Address_out(nextpc));
@@ -104,7 +116,7 @@ module mips_core(/*AUTOARG*/
    // Instruction decoding
    IR instruction_register(
       .inst(inst),
-      .op(op),
+      .op_code(op_code),
       .rs(rs),
       .rt(rt),
       .rd(rd),
@@ -137,15 +149,22 @@ module mips_core(/*AUTOARG*/
    // End of automatics
 
    // Generate control signals
-   CU control_unit(/*AUTOINST*/
-		       // Outputs
-		       .ctrl_we		(ctrl_we),            // Write to the register file
-		       .ctrl_Sys	(ctrl_Sys),           // System call exception
-		       .ctrl_RI		(ctrl_RI),            // Reserved instruction exception
-		       .alu__sel	(alu__sel[3:0]),      // Selects the ALU function
-		       // Inputs
-		       .dcd_op		(dcd_op[5:0]),        // Instruction opcode
-		       .dcd_funct2	(dcd_funct2[5:0])); // Instruction minor opcode
+   CU control_unitCU(
+      // Inputs
+      .op_code    (op_code),
+      .rt         (rt),
+      .funct      (funct),
+      // Outputs
+      .RegDst     (RegDst),
+      .RegWrite   (RegWrite)
+      .Jump       (Jump),
+      .Branch     (Branch),
+      .MemRead    (MemRead),
+      .MemWrite   (MemWrite),
+      .MemtoReg   (MemtoReg),
+      .ALUOp      (ALUOp),
+      .ALUSrc1    (ALUSrc1),
+      .ALUSrc2    (ALUSrc2));
  
    // Register File
    // Instantiate the register file from reg_file.v here.
