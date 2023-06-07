@@ -102,25 +102,16 @@ module mips_core(/*AUTOARG*/
    assign        inst_addr = nextpc[31:2];
 
    // Instruction decoding
-   assign        dcd_op = inst[31:26];    // Opcode
-   assign        dcd_rs = inst[25:21];    // rs field
-   assign        dcd_rt = inst[20:16];    // rt field
-   assign        dcd_rd = inst[15:11];    // rd field
-   assign        dcd_shamt = inst[10:6];  // Shift amount
-   assign        dcd_bczft = inst[16];    // bczt or bczf?
-   assign        dcd_funct1 = inst[4:0];  // Coprocessor 0 function field
-   assign        dcd_funct2 = inst[5:0];  // funct field; secondary opcode
-   assign        dcd_offset = inst[15:0]; // offset field
-        // Sign-extended offset for branches
-   assign        dcd_se_offset = { {14{dcd_offset[15]}}, dcd_offset, 2'b00 };
-        // Sign-extended offset for load/store
-   assign        dcd_se_mem_offset = { {16{dcd_offset[15]}}, dcd_offset };
-   assign        dcd_imm = inst[15:0];        // immediate field
-   assign        dcd_e_imm = { 16'h0, dcd_imm };  // zero-extended immediate
-        // Sign-extended immediate
-   assign        dcd_se_imm = { {16{dcd_imm[15]}}, dcd_imm };
-   assign        dcd_target = inst[25:0];     // target field
-   assign        dcd_code = inst[25:6];       // Breakpoint code
+   IR instruction_register(
+      .inst(inst),
+      .op(op),
+      .rs(rs),
+      .rt(rt),
+      .rd(rd),
+      .shamt(shamt),
+      .funct(funct),
+      .imm(imm),
+      .target(target))
 
    // synthesis translate_off
    always @(posedge clk) begin
