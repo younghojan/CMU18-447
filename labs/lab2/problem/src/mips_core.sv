@@ -104,7 +104,11 @@ module mips_core(/*AUTOARG*/
    wire MemtoReg,
    wire [3:0] ALUOp,
    wire ALUSrc1,
-   wire [1:0] ALUSrc2;
+   wire [1:0] ALUSrc2,
+
+   wire [31:0] rs_data,
+   wire [31:0] rt_data,
+   wire [31:0] rd_data;
 
    
    // PC Management
@@ -136,18 +140,6 @@ module mips_core(/*AUTOARG*/
    end
    // synthesis translate_on
 
-   // Let Verilog-Mode pipe wires through for us.  This is another example
-   // of Verilog-Mode's power -- undeclared nets get AUTOWIREd up when we
-   // run 'make auto'.
-   
-   /*AUTOWIRE*/
-   // Beginning of automatic wires (for undeclared instantiated-module outputs)
-   wire [3:0]		alu__sel;		// From Decoder of mips_decode.v
-   wire			ctrl_RI;		// From Decoder of mips_decode.v
-   wire			ctrl_Sys;		// From Decoder of mips_decode.v
-   wire			ctrl_we;		// From Decoder of mips_decode.v
-   // End of automatics
-
    // Generate control signals
    CU control_unit(
       // Inputs
@@ -174,11 +166,11 @@ module mips_core(/*AUTOARG*/
 		       .rs_data   (rs_data),
 		       .rt_data   (rt_data),
 		       // Inputs
-		       .rs_num    (dcd_rs),
-		       .rt_num    (dcd_rt),
-		       .rd_num    (dcd_rd),
+		       .rs_num    (rs),
+		       .rt_num    (rt),
+		       .rd_num    (rd),
 		       .rd_data   (rd_data),
-		       .rd_we     (ctrl_we),
+		       .rd_we     (RegWrite),
 		       .clk       (clk),
 		       .rst_b     (rst_b),
 		       .halted    (halted));
